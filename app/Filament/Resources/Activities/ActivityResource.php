@@ -27,6 +27,31 @@ class ActivityResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('activities.view');
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()->can('activities.create');
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()->can('activities.edit');
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()->can('activities.delete');
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return auth()->user()->can('activities.delete');
+    }
+
     public static function form(Schema $schema): Schema
     {
         return $schema->components([
