@@ -14,14 +14,15 @@ class CreateUser extends CreateRecord
         $roles = $data['roles'] ?? [];
         unset($data['roles']);
 
-        $user = \App\Models\User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => $data['password'],
-        ]);
+        $data['password'] = bcrypt($data['password']);
 
-        $user->syncRoles($roles);
+        $this->roles = $roles;
 
         return $data;
+    }
+
+    protected function afterCreate(): void
+    {
+        $this->record->syncRoles($this->roles ?? []);
     }
 }
