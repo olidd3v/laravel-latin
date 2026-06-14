@@ -25,6 +25,31 @@ class RoleResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('roles.view');
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()->can('roles.create');
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()->can('roles.edit');
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()->can('roles.delete');
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return auth()->user()->can('roles.delete');
+    }
+
     public static function form(Schema $schema): Schema
     {
         return RoleFormNew::configure($schema);

@@ -26,6 +26,31 @@ class UserResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('users.view');
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()->can('users.create');
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()->can('users.edit');
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()->can('users.delete');
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return auth()->user()->can('users.delete');
+    }
+
     public static function form(Schema $schema): Schema
     {
         return $schema->schema([

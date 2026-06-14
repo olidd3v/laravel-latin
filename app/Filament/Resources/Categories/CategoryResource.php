@@ -24,6 +24,31 @@ class CategoryResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('categories.view');
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()->can('categories.create');
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()->can('categories.edit');
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()->can('categories.delete');
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return auth()->user()->can('categories.delete');
+    }
+
     public static function form(Schema $schema): Schema
     {
         return $schema->components([
