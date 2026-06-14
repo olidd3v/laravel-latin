@@ -32,6 +32,7 @@ class ActivityResource extends Resource
         return $schema->components([
             Select::make('category_id')
                 ->relationship('category', 'name')
+                ->preload()
                 ->searchable()
                 ->required(),
 
